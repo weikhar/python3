@@ -1,0 +1,58 @@
+# http://interactivepython.org/runestone/static/pythonds/index.html
+
+import time
+
+def sumOfN(n):
+	start = time.time()
+	theSum = 0
+	for i in range(1,n+1):
+		theSum = theSum + i
+	end = time.time()
+	return theSum, end-start
+
+def sumOfN3(n):
+	start2 = time.time()
+	res = n*(n+1)/2
+	end2 = time.time()
+	return res, end2-start2
+
+count=0
+while count<5:
+	print(sumOfN(10000000))
+	count = count + 1
+
+print("")
+
+count=0
+while count<5:
+	print(sumOfN3(100000000000000))
+	count = count + 1
+
+print("")
+
+# Listing 3
+import timeit
+def test1():
+    l = []
+    for i in range(1000):
+        l = l + [i]
+
+def test2():
+    l = []
+    for i in range(1000):
+        l.append(i)
+
+def test3():
+    l = [i for i in range(1000)]
+
+def test4():
+    l = list(range(1000))
+
+t1 = timeit.Timer("test1()", "from __main__ import test1")
+print("concat ",t1.timeit(number=1000000), "milliseconds")
+t2 = timeit.Timer("test2()", "from __main__ import test2")
+print("append ",t2.timeit(number=1000000), "milliseconds")
+t3 = timeit.Timer("test3()", "from __main__ import test3")
+print("comprehension ",t3.timeit(number=1000000), "milliseconds")
+t4 = timeit.Timer("test4()", "from __main__ import test4")
+print("list range ",t4.timeit(number=1000000), "milliseconds")

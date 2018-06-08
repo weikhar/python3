@@ -348,19 +348,33 @@ def partition(alist,first,last):
 # Generate 500 random numbers (non-repeat, repeat)
 # measure time taken by each sort algorithm
 
-NON_REPEAT_NUM = 1000
-print("\nRandomize",NON_REPEAT_NUM, "numbers")
 import random
-nums = [x for x in range(NON_REPEAT_NUM)]
-random.shuffle(nums)
-print(nums)
+NON_REPEAT_NUM = 1000		# number of items to be sorted
+ALLOW_REPEAT_NUM = 1000		# number of items to be sorted
+
+# *** for non repeating random numbers
+nrptnums = [x for x in range(NON_REPEAT_NUM)]
+random.shuffle(nrptnums)
+
+# *** allow repeating random numbers
+vnum = 0
+rptnums = []
+for vnum in range(ALLOW_REPEAT_NUM):
+	rptnums.append(random.randint(0,ALLOW_REPEAT_NUM))
+
+TOTAL_NUMBERS = ALLOW_REPEAT_NUM
+nums = rptnums
+
+print("\nRandomize",TOTAL_NUMBERS, "numbers")
+# print(nums)
 print("total items =", len(nums))
 
-NTRIES = 1000
+
+NTRIES = 1000	# get average from how many attempts
 import time
 
 import sys
-sys.setrecursionlimit(1500)	#overcome stack size (eg recursive) limit
+sys.setrecursionlimit(3000)	#overcome stack size (eg recursive) limit
 
 #testlist = [1, 2, 32, 8, 17, 19, 42, 13, 0]
 #print(sequentialSearch(testlist, 3))
@@ -399,91 +413,102 @@ sys.setrecursionlimit(1500)	#overcome stack size (eg recursive) limit
 
 
 import timeit
-def test1():
+def search1():
     testlist = nums
     sequentialSearch(testlist, 3)
 
-def test2():
+def search2():
     alist = nums
     testlist = nums
     orderedSequentialSearch(testlist, 3)
 
-def test3():
+def search3():
     testlist = nums
     binarySearchOrderedList(testlist, 3)
 
-def test4():
+def search4():
     testlist = nums
     binarySearchRecursive(testlist, 3)
 
-def test5():
+def sort1():
     alist = nums
     bubbleSort(alist)
 
-def test6():
+def sort2():
     alist = nums
     shortBubbleSort(alist)
 
-def test7():
+def sort3():
     alist = nums
     selectionSort(alist)
 
-def test8():
+def sort4():
     alist = nums
     insertionSort(alist)
 
-def test9():
+def sort5():
     alist = nums
     shellSort(alist)
 
-def test10():
+def sort6():
     alist = nums
     mergeSort(alist)
 
-def test11():
+def sort7():
     alist = nums
     quickSort(alist)
 
+
 localtime = time.asctime( time.localtime(time.time()) )
 start = time.time()
-print("\nTime (avg) of sort algorithms on array of", NON_REPEAT_NUM, "numbers, in ", NTRIES, "attempts")
+print("\nTime (avg) of search algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
 print("Start time: ", localtime)
 
-t1 = timeit.Timer("test1()", "from __main__ import test1")
-print("01) Sequential:         ",t1.timeit(number=NTRIES), "ms")
+search01 = timeit.Timer("search1()", "from __main__ import search1")
+print("01) Sequential:         ",search01.timeit(number=NTRIES), "ms")
 
-t2 = timeit.Timer("test2()", "from __main__ import test2")
-print("02) Ordered Sequential: ",t2.timeit(number=NTRIES), "ms")
+search02 = timeit.Timer("search2()", "from __main__ import search2")
+print("02) Ordered Sequential: ",search02.timeit(number=NTRIES), "ms")
 
-t3 = timeit.Timer("test3()", "from __main__ import test3")
-print("03) Binary Ordered:     ",t3.timeit(number=NTRIES), "ms")
+search03 = timeit.Timer("search3()", "from __main__ import search3")
+print("03) Binary Ordered:     ",search03.timeit(number=NTRIES), "ms")
 
-t4 = timeit.Timer("test4()", "from __main__ import test4")
-print("04) Binary Recursive:   ",t4.timeit(number=NTRIES), "ms")
-
-t5 = timeit.Timer("test5()", "from __main__ import test5")
-print("05) Bubble Sort:        ",t5.timeit(number=NTRIES), "ms")
-
-t6 = timeit.Timer("test6()", "from __main__ import test6")
-print("06) Short Bubble Sort:  ",t6.timeit(number=NTRIES), "ms")
-
-t7 = timeit.Timer("test7()", "from __main__ import test7")
-print("07) Selection Sort:     ",t7.timeit(number=NTRIES), "ms")
-
-t8 = timeit.Timer("test8()", "from __main__ import test8")
-print("08) Insertion Sort:     ",t8.timeit(number=NTRIES), "ms")
-
-t9 = timeit.Timer("test9()", "from __main__ import test9")
-print("09) Shell Sort:         ",t9.timeit(number=NTRIES), "ms")
-
-t10 = timeit.Timer("test10()", "from __main__ import test10")
-print("10) Merge Sort:         ",t10.timeit(number=NTRIES), "ms")
-
-t11 = timeit.Timer("test11()", "from __main__ import test11")
-print("11) Quick Sort:         ",t11.timeit(number=NTRIES), "ms")
+search04 = timeit.Timer("search4()", "from __main__ import search4")
+print("04) Binary Recursive:   ",search04.timeit(number=NTRIES), "ms")
 
 end = time.time()
 tdur = end-start
 localtime = time.asctime( time.localtime(time.time()) )
-print("\nCompleted. End time:", localtime, "total time taken =", tdur, "sec = ", tdur/60, "mins")
+print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
+
+localtime = time.asctime( time.localtime(time.time()) )
+start = time.time()
+print("\n\nTime (avg) of sort algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
+print("Start time: ", localtime)
+
+sort01 = timeit.Timer("sort1()", "from __main__ import sort1")
+print("01) Bubble Sort:        ",sort01.timeit(number=NTRIES), "ms")
+
+sort02 = timeit.Timer("sort2()", "from __main__ import sort2")
+print("02) Short Bubble Sort:  ",sort02.timeit(number=NTRIES), "ms")
+
+sort03 = timeit.Timer("sort3()", "from __main__ import sort3")
+print("03) Selection Sort:     ",sort03.timeit(number=NTRIES), "ms")
+
+sort04 = timeit.Timer("sort4()", "from __main__ import sort4")
+print("04) Insertion Sort:     ",sort04.timeit(number=NTRIES), "ms")
+
+sort05 = timeit.Timer("sort5()", "from __main__ import sort5")
+print("05) Shell Sort:         ",sort05.timeit(number=NTRIES), "ms")
+
+sort06 = timeit.Timer("sort6()", "from __main__ import sort6")
+print("06) Merge Sort:         ",sort06.timeit(number=NTRIES), "ms")
+
+sort07 = timeit.Timer("sort7()", "from __main__ import sort7")
+print("07) Quick Sort:         ",sort07.timeit(number=NTRIES), "ms")
+
+end = time.time()
+tdur = end-start
+localtime = time.asctime( time.localtime(time.time()) )
+print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
 # print(alist)

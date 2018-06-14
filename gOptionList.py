@@ -5,12 +5,16 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+from selenium.webdriver.common.keys import Keys
+import time
 
 # Create a new instance of the Firefox driver
 driver = webdriver.Chrome()
 print("\nSearch - Buy Samples page")
-driver.get("http://www.globalsources.com/SITE/BUY-PRODUCT-SAMPLES.HTM")
-print(driver.title)
+url = "http://www.globalsources.com/SITE/BUY-PRODUCT-SAMPLES.HTM"
+driver.get(url)
+print("at page:", driver.title)
+print("page url:", driver.current_url)
 
 #--Reference --------
 # select = driver.find_element_by_tag_name("select")
@@ -38,25 +42,32 @@ print(driver.title)
 	# 	<input type="hidden" name="language" id="language" value="en"/>
 	# 	</div>
 
-# selector = driver.find_element_by_class_name("searchType_list")
-# items = selector.find_elements_by_tag_name("li")
-# for item in items:
-#     text = item.text
-#     print("item:",text)
-# driver.execute_script("document.getElementById('qType').setAttribute('value', 'EXHIBITOR')")
-
-KWS = driver.find_element_by_name("query")
-KWS.send_keys("cheese!")
-KWS_submit = driver.find_element_by_class_name("GS_searchBtn").click() #because KWS does not have a submit/click but uses an 'enter' key
+#print("1 sec")
+time.sleep(1)
+KWS = driver.find_element_by_id("gsolquery")
+#print("1 sec")
+time.sleep(1)
+KWS.send_keys("cheese!", Keys.ENTER)
+#KWS_submit = driver.find_element_by_class_name("GS_searchBtn").click() #because KWS does not have a submit/click but uses an 'enter' key
 
 try:
     WebDriverWait(driver, 10).until(EC.title_contains("cheese!"))
-    print(driver.title)  #see "Global Sources - Product Search: cheese!"
-
+    print("\nat page:", driver.title)  #see "Global Sources - Product Search: cheese!"
+    print("page url:", driver.current_url)
 finally:
-    input("Press Enter to continue...")
+    #input("Press Enter to continue...")
+    time.sleep(1)
 
-results_tabs = driver.find_element_by_class_name("listing_tab ")
-for tab in results_tabs:
-    print(tab(text))
-driver.quit() 
+#print("1 sec")
+time.sleep(1)
+rtabs = driver.find_element_by_css_selector("[class^=listing_tab ]")
+items = rtabs.find_elements_by_tag_name("li")
+for item in items:
+    #print("tab:",item.tag_name,"-",item.text)
+    if item.text == "Supplier List":
+        item.click()
+        break
+
+input("\nWhen at Supplier List tab, press Enter to continue...")
+driver.quit()
+print("end")

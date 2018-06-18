@@ -32,13 +32,14 @@ def av1():
 
 def av2():
     print("\n2) Getting csv data")
-    ts = TimeSeries(key=API_KEY, output_format='csv')
+    ts = TimeSeries(key=API_KEY, output_format='pandas')
     data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
-    #data.describe()
+    
+    ts = TimeSeries(key=API_KEY, output_format='csv')
     data_csv,_ = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='compact')
     print(data_csv)
     input("printed data_csv - press Enter to continue...")
-    #data = data.drop('5. volume',1)
+    data = data.drop('5. volume',1)
     data.plot()
     plt.title('Intraday Times Series for the MSFT stock (1 min)')
     plt.grid()

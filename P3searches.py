@@ -458,57 +458,177 @@ def sort7():
     alist = nums
     quickSort(alist)
 
+#**********************************************************
+# refactor these sequence into menu options
+# localtime = time.asctime( time.localtime(time.time()) )
+# start = time.time()
+# print("\nTime (avg) of search algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
+# print("Start time: ", localtime)
 
-localtime = time.asctime( time.localtime(time.time()) )
-start = time.time()
-print("\nTime (avg) of search algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
-print("Start time: ", localtime)
+# search01 = timeit.Timer("search1()", "from __main__ import search1")
+# print("01) Sequential:         ",search01.timeit(number=NTRIES), "ms")
 
-search01 = timeit.Timer("search1()", "from __main__ import search1")
-print("01) Sequential:         ",search01.timeit(number=NTRIES), "ms")
+# search02 = timeit.Timer("search2()", "from __main__ import search2")
+# print("02) Ordered Sequential: ",search02.timeit(number=NTRIES), "ms")
 
-search02 = timeit.Timer("search2()", "from __main__ import search2")
-print("02) Ordered Sequential: ",search02.timeit(number=NTRIES), "ms")
+# search03 = timeit.Timer("search3()", "from __main__ import search3")
+# print("03) Binary Ordered:     ",search03.timeit(number=NTRIES), "ms")
 
-search03 = timeit.Timer("search3()", "from __main__ import search3")
-print("03) Binary Ordered:     ",search03.timeit(number=NTRIES), "ms")
+# search04 = timeit.Timer("search4()", "from __main__ import search4")
+# print("04) Binary Recursive:   ",search04.timeit(number=NTRIES), "ms")
 
-search04 = timeit.Timer("search4()", "from __main__ import search4")
-print("04) Binary Recursive:   ",search04.timeit(number=NTRIES), "ms")
+# end = time.time()
+# tdur = end-start
+# localtime = time.asctime( time.localtime(time.time()) )
+# print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
 
-end = time.time()
-tdur = end-start
-localtime = time.asctime( time.localtime(time.time()) )
-print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
+# localtime = time.asctime( time.localtime(time.time()) )
+# start = time.time()
+# print("\n\nTime (avg) of sort algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
+# print("Start time: ", localtime)
 
-localtime = time.asctime( time.localtime(time.time()) )
-start = time.time()
-print("\n\nTime (avg) of sort algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
-print("Start time: ", localtime)
+# sort01 = timeit.Timer("sort1()", "from __main__ import sort1")
+# print("01) Bubble Sort:        ",sort01.timeit(number=NTRIES), "ms")
 
-sort01 = timeit.Timer("sort1()", "from __main__ import sort1")
-print("01) Bubble Sort:        ",sort01.timeit(number=NTRIES), "ms")
+# sort02 = timeit.Timer("sort2()", "from __main__ import sort2")
+# print("02) Short Bubble Sort:  ",sort02.timeit(number=NTRIES), "ms")
 
-sort02 = timeit.Timer("sort2()", "from __main__ import sort2")
-print("02) Short Bubble Sort:  ",sort02.timeit(number=NTRIES), "ms")
+# sort03 = timeit.Timer("sort3()", "from __main__ import sort3")
+# print("03) Selection Sort:     ",sort03.timeit(number=NTRIES), "ms")
 
-sort03 = timeit.Timer("sort3()", "from __main__ import sort3")
-print("03) Selection Sort:     ",sort03.timeit(number=NTRIES), "ms")
+# sort04 = timeit.Timer("sort4()", "from __main__ import sort4")
+# print("04) Insertion Sort:     ",sort04.timeit(number=NTRIES), "ms")
 
-sort04 = timeit.Timer("sort4()", "from __main__ import sort4")
-print("04) Insertion Sort:     ",sort04.timeit(number=NTRIES), "ms")
+# sort05 = timeit.Timer("sort5()", "from __main__ import sort5")
+# print("05) Shell Sort:         ",sort05.timeit(number=NTRIES), "ms")
 
-sort05 = timeit.Timer("sort5()", "from __main__ import sort5")
-print("05) Shell Sort:         ",sort05.timeit(number=NTRIES), "ms")
+# sort06 = timeit.Timer("sort6()", "from __main__ import sort6")
+# print("06) Merge Sort:         ",sort06.timeit(number=NTRIES), "ms")
 
-sort06 = timeit.Timer("sort6()", "from __main__ import sort6")
-print("06) Merge Sort:         ",sort06.timeit(number=NTRIES), "ms")
+# sort07 = timeit.Timer("sort7()", "from __main__ import sort7")
+# print("07) Quick Sort:         ",sort07.timeit(number=NTRIES), "ms")
 
-sort07 = timeit.Timer("sort7()", "from __main__ import sort7")
-print("07) Quick Sort:         ",sort07.timeit(number=NTRIES), "ms")
-
-end = time.time()
-tdur = end-start
-localtime = time.asctime( time.localtime(time.time()) )
-print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
+# end = time.time()
+# tdur = end-start
+# localtime = time.asctime( time.localtime(time.time()) )
+# print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
 # print(alist)
+#**********************************************************
+
+#------- start here -------
+# map the inputs to the function blocks
+def se1():
+    print("Start [Sequential Search]")
+    search01 = timeit.Timer("search1()", "from __main__ import search1")
+    print("Results.........................",search01.timeit(number=NTRIES), "ms")
+
+def se2():
+    print("Start [Ordered Sequential Search]")
+    search02 = timeit.Timer("search2()", "from __main__ import search2")
+    print("Results.........................",search02.timeit(number=NTRIES), "ms")
+
+def se3():
+    print("Start [Ordered Binary Search]")
+    search03 = timeit.Timer("search3()", "from __main__ import search3")
+    print("Results.........................",search03.timeit(number=NTRIES), "ms")
+
+def se4():
+    print("Start [Recursive Binary Search]")
+    search04 = timeit.Timer("search4()", "from __main__ import search4")
+    print("Results.........................",search04.timeit(number=NTRIES), "ms")
+
+def so1():
+    print("Start [Bubble Sort]")
+    sort01 = timeit.Timer("sort1()", "from __main__ import sort1")
+    print("Results.........................",sort01.timeit(number=NTRIES), "ms")
+
+def so2():
+    print("Start [Short Bubble Sort]")
+    sort02 = timeit.Timer("sort2()", "from __main__ import sort2")
+    print("Results.........................",sort02.timeit(number=NTRIES), "ms")
+
+def so3():
+    print("Start [Selection Sort]")
+    sort03 = timeit.Timer("sort3()", "from __main__ import sort3")
+    print("Results.........................",sort03.timeit(number=NTRIES), "ms")
+
+def so4():
+    print("Start [Insertion Sort]")
+    sort04 = timeit.Timer("sort4()", "from __main__ import sort4")
+    print("Results.........................",sort04.timeit(number=NTRIES), "ms")
+
+def so5():
+    print("Start [Shell Sort]")
+    sort05 = timeit.Timer("sort5()", "from __main__ import sort5")
+    print("Results.........................",sort05.timeit(number=NTRIES), "ms")
+
+def so6():
+    print("Start [Merge Sort]")
+    sort06 = timeit.Timer("sort6()", "from __main__ import sort6")
+    print("Results.........................",sort06.timeit(number=NTRIES), "ms")
+
+def so7():
+    print("Start [Quick Sort]")
+    sort07 = timeit.Timer("sort7()", "from __main__ import sort7")
+    print("Results.........................",sort07.timeit(number=NTRIES), "ms")
+
+def so8():
+    print("Start [All Sorts]")
+    localtime = time.asctime( time.localtime(time.time()) )
+    start = time.time()
+    print("Time (avg) of sort algorithms on array of", TOTAL_NUMBERS, "numbers, in ", NTRIES, "attempts")
+    print("Start time: ", localtime)
+    so1()
+    so2()
+    so3()
+    so4()
+    so5()
+    so6()
+    so7()
+    end = time.time()
+    tdur = end-start
+    localtime = time.asctime( time.localtime(time.time()) )
+    print("\nCompleted.\nEnd time:", localtime, "\n Total time taken =", tdur, "sec = ", tdur/60, "mins")
+
+def menu():
+    print("\n\n\nTiming Menu:")
+    print("1) Search - Sequential")
+    print("2) Search - Ordered Sequential")
+    print("3) Search - Ordered Binary")
+    print("4) Search - Recursive Binary")
+    print("5) Bubble Sort")
+    print("6) Short Bubble Sort")
+    print("7) Selection Sort")
+    print("8) Insertion Sort")
+    print("9) Shell Sort")
+    print("10) Merge Sort")
+    print("11) Quick Sort")
+    print("12) All Sorts")
+    print("99) Exit")
+    x = int(input("\nEnter a number  <1..12 | 99>: "))
+    if x > 0 and x < 13:
+      options[x]()
+      menu()
+    elif x == 99:
+      global done_demo
+      done_demo = 0
+
+options = {1 : se1,
+   2 : se2,
+   3 : se3,
+   4 : se4,
+   5 : so1,
+   6 : so2,
+   7 : so3,
+   8 : so4,
+   9 : so5,
+   10 : so6,
+   11 : so7,
+   12 : so8,
+}
+global done_demo 
+done_demo = 1
+while done_demo:
+    menu()
+
+print("\nEnd")

@@ -77,15 +77,16 @@ print(aapl.columns)
 # import matplotlib.pyplot as plt
 # Plot the closing prices for `aapl`
 aapl['Close'].plot(grid=True)
+plt.title('Close')
 # Show the plot
-# plt.show()
+plt.show()
 
 
 
 #----Common Financial Analysis
 #----Returns
 
-# Assign `Adj Close` to `daily_close`
+# Assign `Adj. Close` to `daily_close`
 daily_close = aapl[['Adj. Close']]
 # Daily returns
 daily_pct_c = daily_close.pct_change()
@@ -119,8 +120,9 @@ print(quarter.pct_change())
 #import matplotlib.pyplot as plt
 # Plot the distribution of `daily_pct_c`
 daily_pct_c.hist(bins=50)
+plt.title('Distribution of daily pct change')
 # Show the plot
-# plt.show()
+plt.show()
 # Pull up summary statistics
 print(daily_pct_c.describe())
 #input("Printed [summary statistics], presse Enter to continue..\n")
@@ -134,6 +136,7 @@ print(cum_daily_return)
 #import matplotlib.pyplot as plt 
 # Plot the cumulative daily returns
 cum_daily_return.plot(figsize=(12,8))
+plt.title('Cumulative daily return')
 # Show the plot
 plt.show()
 
@@ -151,29 +154,32 @@ def get(tickers, startdate, enddate):
     datas = map (data, tickers)
     return(pd.concat(datas, keys=tickers, names=['Ticker', 'Date']))
 
-tickers = ['AAPL', 'MSFT', 'IBM', 'GOOG']
+#tickers = ['AAPL', 'MSFT', 'IBM', 'GOOG']
+tickers = ['WIKI/AAPL', 'WIKI/MSFT', 'WIKI/IBM', 'WIKI/GOOG']
 all_data = get(tickers, datetime.datetime(2006, 10, 1), datetime.datetime(2012, 1, 1))
 all_data.head()
 
 
-daily_close_pxdaily_cl  = all_data[['Adj Close']].reset_index().pivot('Date', 'Ticker', 'Adj Close')
+daily_close_px = all_data[['Adj. Close']].reset_index().pivot('Date', 'Ticker', 'Adj. Close')
 # Calculate the daily percentage change for `daily_close_px`
 daily_pct_change = daily_close_px.pct_change()
 # Plot the distributions
 daily_pct_change.hist(bins=50, sharex=True, figsize=(12,8))
+plt.title('Distribution of Daily Close')
 # Show the resulting plot
 plt.show()
 
 
 # Plot a scatter matrix with the `daily_pct_change` data 
 pd.plotting.scatter_matrix(daily_pct_change, diagonal='kde', alpha=0.1,figsize=(12,12))
+plt.title('Scatter Plot of Daily pct change')
 # Show the plot
 plt.show()
 
 
 #----Moving Windows
 # Isolate the adjusted closing prices 
-adj_close_px = aapl['Adj Close']
+adj_close_px = aapl['Adj. Close']
 # Calculate the moving average
 moving_avg = adj_close_px.rolling(window=40).mean()
 # Inspect the result
@@ -185,6 +191,7 @@ aapl['42'] = adj_close_px.rolling(window=40).mean()
 aapl['252'] = adj_close_px.rolling(window=252).mean()
 # Plot the adjusted closing price, the short and long windows of rolling means
 aapl[['Adj. Close', '42', '252']].plot()
+plt.title('Adj. Close with moving windows of rolling means')
 plt.show()
 
 
@@ -195,6 +202,7 @@ min_periods = 75
 vol = daily_pct_change.rolling(min_periods).std() * np.sqrt(min_periods) 
 # Plot the volatility
 vol.plot(figsize=(10, 8))
+plt.title('Volatility')
 # Show the plot
 plt.show()
 
@@ -207,36 +215,47 @@ from pandas import tseries
 from pandas.core import datetools
 
 # Isolate the adjusted closing price
-all_adj_close = all_data[['Adj Close']]
+all_adj_close = all_data[['Adj. Close']]
 # Calculate the returns 
 all_returns = np.log(all_adj_close / all_adj_close.shift(1))
 # Isolate the AAPL returns 
-aapl_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'AAPL']
+#aapl_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'AAPL']
+aapl_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'WIKI/AAPL']
 aapl_returns.index = aapl_returns.index.droplevel('Ticker')
 # Isolate the MSFT returns
-msft_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'MSFT']
+#msft_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'MSFT']
+msft_returns = all_returns.iloc[all_returns.index.get_level_values('Ticker') == 'WIKI/MSFT']
 msft_returns.index = msft_returns.index.droplevel('Ticker')
 # Build up a new DataFrame with AAPL and MSFT returns
 return_data = pd.concat([aapl_returns, msft_returns], axis=1)[1:]
-return_data.columns = ['AAPL', 'MSFT']
+#return_data.columns = ['AAPL', 'MSFT']
+return_data.columns = ['WIKI/AAPL', 'WIKI/MSFT']
 # Add a constant 
-X = sm.add_constant(return_data['AAPL'])
+#X = sm.add_constant(return_data['AAPL'])
+X = sm.add_constant(return_data['WIKI/AAPL'])
 # Construct the model
-model = sm.OLS(return_data['MSFT'],X).fit()
+#model = sm.OLS(return_data['MSFT'],X).fit()
+model = sm.OLS(return_data['WIKI/MSFT'],X).fit()
 # Print the summary
 print(model.summary())
 
-pltplt..plotplot((return_datareturn_d ['AAPL'], return_data['MSFT'], 'r.')
+#plt.plot(return_data['AAPL'], return_data['MSFT'], 'r.')
+plt.plot(return_data['WIKI/AAPL'], return_data['WIKI/MSFT'], 'r.')
+
 ax = plt.axis()
 x = np.linspace(ax[0], ax[1] + 0.01)
+
 plt.plot(x, model.params[0] + model.params[1] * x, 'b', lw=2)
 plt.grid(True)
 plt.axis('tight')
 plt.xlabel('Apple Returns')
 plt.ylabel('Microsoft returns')
+plt.title('Ordinary Least-Squares Regression (OLS) - 1')
 plt.show()
 
-return_data['MSFT'].rolling(window=252).corr(return_data['AAPL']).plot()
+plt.title('Ordinary Least-Squares Regression (OLS) -2')
+#return_data['MSFT'].rolling(window=252).corr(return_data['AAPL']).plot()
+return_data['WIKI/MSFT'].rolling(window=252).corr(return_data['WIKI/AAPL']).plot()
 plt.show()
 
 
@@ -275,6 +294,7 @@ ax1.plot(signals.loc[signals.positions == 1.0].index,
 ax1.plot(signals.loc[signals.positions == -1.0].index, 
          signals.short_mavg[signals.positions == -1.0],
          'v', markersize=10, color='k')
+plt.title('Signalling')
 # Show the plot
 plt.show()
 
@@ -289,13 +309,13 @@ positions = pd.DataFrame(index=signals.index).fillna(0.0)
 # Buy a 100 shares
 positions['AAPL'] = 100*signals['signal']   
 # Initialize the portfolio with value owned   
-portfolio = positions.multiply(aapl['Adj Close'], axis=0)
+portfolio = positions.multiply(aapl['Adj. Close'], axis=0)
 # Store the difference in shares owned 
 pos_diff = positions.diff()
 # Add `holdings` to portfolio
-portfolio['holdings'] = (positions.multiply(aapl['Adj Close'], axis=0)).sum(axis=1)
+portfolio['holdings'] = (positions.multiply(aapl['Adj. Close'], axis=0)).sum(axis=1)
 # Add `cash` to portfolio
-portfolio['cash'] = initial_capital - (pos_diff.multiply(aapl['Adj Close'], axis=0)).sum(axis=1).cumsum()   
+portfolio['cash'] = initial_capital - (pos_diff.multiply(aapl['Adj. Close'], axis=0)).sum(axis=1).cumsum()   
 # Add `total` to portfolio
 portfolio['total'] = portfolio['cash'] + portfolio['holdings']
 # Add `returns` to portfolio
@@ -314,6 +334,7 @@ ax1.plot(portfolio.loc[signals.positions == 1.0].index,
 ax1.plot(portfolio.loc[signals.positions == -1.0].index, 
          portfolio.total[signals.positions == -1.0],
          'v', markersize=10, color='k')
+plt.title('Backtesting')
 # Show the plot
 plt.show()
 
@@ -334,13 +355,14 @@ print("\nSharpe Ratio : ", sharpe_ratio)
 # Define a trailing 252 trading day window
 window = 252
 # Calculate the max drawdown in the past window days for each day
-rolling_max = aapl['Adj Close'].rolling(window, min_periods=1).max()
-daily_drawdown = aapl['Adj Close']/rolling_max - 1.0
+rolling_max = aapl['Adj. Close'].rolling(window, min_periods=1).max()
+daily_drawdown = aapl['Adj. Close']/rolling_max - 1.0
 # Calculate the minimum (negative) daily drawdown
 max_daily_drawdown = daily_drawdown.rolling(window, min_periods=1).min()
 # Plot the results
 daily_drawdown.plot()
 max_daily_drawdown.plot()
+plt.title('Maximum Drawdown')
 # Show the plot
 plt.show()
 
@@ -349,6 +371,9 @@ plt.show()
 # Get the number of days in `aapl`
 days = (aapl.index[-1] - aapl.index[0]).days
 # Calculate the CAGR 
-cagr = ((((aapl['Adj Close'][-1]) / aapl['Adj Close'][1])) ** (365.0/days)) - 1
+cagr = ((((aapl['Adj. Close'][-1]) / aapl['Adj. Close'][1])) ** (365.0/days)) - 1
 # Print CAGR
 print("\nCompound Annual Growth Rate (CAGR) : ", cagr)
+
+
+print("\n\n End")

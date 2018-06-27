@@ -11,70 +11,85 @@ from pandas_datareader import data as pdr
 #import fix_yahoo_finance
 #aapl = pdr.get_data_yahoo('AAPL', start=datetime.datetime(2006, 10, 1), end=datetime.datetime(2012, 1, 1))
 import quandl 
-aapl = quandl.get("WIKI/AAPL", start_date="2006-10-01", end_date="2012-01-01")
-aapl.head()
-print(aapl.head())
+
+gSTART_DATE = "1980-01-01"
+gTODAY_DATE = datetime.date.today()
+gSTART_YYYY = "1980"
+gSTART_MM   = "1"
+gSTART_DD   = "1"
+
+#aapl = quandl.get("WIKI/AAPL", start_date="2006-10-01", end_date="2012-01-01")
+aapl = quandl.get("WIKI/AAPL", start_date=gSTART_DATE, end_date=gTODAY_DATE)
+# Alternatively, you can load in a data set that you have downloaded, eg from Yahoo! Finance: 
+# aapl = pd.read_csv("https://s3.amazonaws.com/assets.datacamp.com/blog_assets/aapl.csv", header=0, index_col= 0, names=['Open', 'High', 'Low', 'Close', 'Volume', 'Adj Close'], parse_dates=True)
+
+# This section introduces the pandas API, eg .head(n), .index, .columns, .loc, iloc, .sample(n), .resample(n)
+
+# Return the first n rows, default n = 5, can specify as .head(n) where n is >0.
+#print(aapl.head())
 #input("Printed [aapl.head()], presse Enter to continue..\n")
 
-# Inspect the index 
-print(aapl.index)
+# write the dataframe to a file
+#aapl.to_csv("aapl.csv")
+#input("Printed [aapl] to file, presse Enter to continue..\n")
+
+
+# Inspect the index (in this case is the date column)
+#print(aapl.index)
 #input("Printed [aapl.index], presse Enter to continue.\n")
 
-# Inspect the columns
-print(aapl.columns)
+# Inspect the columns headers
+#print(aapl.columns)
 #input("Printed [aapl.columns], presse Enter to continue..\n")
 
 # Select only the last 10 observations of `Close`
-ts = aapl['Close'][-10:]
-
+#ts = aapl['Close'][-10:]
 # Check the type of `ts` 
-print(type(ts))
+#print(type(ts))
 #input("Printed [type(ts)], presse Enter to continue..\n")
+# out: <class 'pandas.core.series.Series'>
 
-# Inspect the first rows of November-December 2006
-print(aapl.loc[pd.Timestamp('2006-11-01'):pd.Timestamp('2006-12-31')].head())
+# Inspect the first (5) rows of Feb-Mar 2018
+#print(aapl.loc[pd.Timestamp('2018-02-01'):pd.Timestamp('2018-03-31')].head())
 #input("Printed [Inspect the first rows of November-December 2006], presse Enter to continue..\n")
 
-# Inspect the first rows of 2007 
-print(aapl.loc['2007'].head())
+# Inspect the first (5) rows of 2018 
+#print(aapl.loc['2018'].head())
 #input("Printed [Inspect the first rows of 2007], presse Enter to continue..\n")
 
-# Inspect November 2006
-print(aapl.iloc[22:43])
+# Inspect index location from #22 to #43
+#print(aapl.iloc[22:43])
 #input("Printed [Inspect November 2006], presse Enter to continue..\n")
 
-# Inspect the 'Open' and 'Close' values at 2006-11-01 and 2006-12-01
-print(aapl.iloc[[22,43], [0, 3]])
+# Inspect the 'Open' and 'Close' values at index location #22 and #43
+#print(aapl.iloc[[22,43], [0, 3]])
 #input("Printed [Inspect the 'Open' and 'Close' values at 2006-11-01 and 2006-12-01], presse Enter to continue..\n")
 
-# Sample 20 rows
-sample = aapl.sample(20)
-# Print `sample`
-print(sample)
+# Sample 20 rows (randomly)
+#sample = aapl.sample(20)
+#print(sample)
 #input("Printed [Sample 20 rows], presse Enter to continue..\n")
 
 # Resample to monthly level 
-monthly_aapl = aapl.resample('M')
-# Print `monthly_aapl`
-print(monthly_aapl)
+#monthly_aapl = aapl.resample('M')
+#print(monthly_aapl)
 #input("Printed [Resample to monthly level], presse Enter to continue..\n")
 
 #print("\nBefore adding new column [Diff]")
-print(aapl.columns)
+#print(aapl.columns)
 
 # Add a column `diff` to `aapl` 
-aapl['diff'] = aapl.Open - aapl.Close
+#aapl['diff'] = aapl.Open - aapl.Close
 #print("\nAfter added new column [Diff]")
-print(aapl.columns)
+#print(aapl.columns)
 
 # Delete the new `diff` column
-del aapl['diff']
+#del aapl['diff']
 #print("\nAfter deleted column [Diff]")
-print(aapl.columns)
+#print(aapl.columns)
 #input("Printed [columns], presse Enter to continue..\n")
 
-# Import Matplotlib's `pyplot` module as `plt`
-# import matplotlib.pyplot as plt
+
 # Plot the closing prices for `aapl`
 aapl['Close'].plot(grid=True)
 plt.title('Close')
@@ -150,13 +165,13 @@ def get(tickers, startdate, enddate):
     def data(ticker):
         #return (pdr.get_data_yahoo(ticker, start=startdate, end=enddate))
         return (quandl.get(ticker, start=startdate, end=enddate))
-
     datas = map (data, tickers)
     return(pd.concat(datas, keys=tickers, names=['Ticker', 'Date']))
 
 #tickers = ['AAPL', 'MSFT', 'IBM', 'GOOG']
 tickers = ['WIKI/AAPL', 'WIKI/MSFT', 'WIKI/IBM', 'WIKI/GOOG']
-all_data = get(tickers, datetime.datetime(2006, 10, 1), datetime.datetime(2012, 1, 1))
+#all_data = get(tickers, datetime.datetime(2006, 10, 1), datetime.datetime(2012, 1, 1))
+all_data = get(tickers, datetime.datetime(gSTART_YYYY, gSTART_MM, gSTART_DD), gTODAY_DATE)
 all_data.head()
 
 
@@ -165,7 +180,7 @@ daily_close_px = all_data[['Adj. Close']].reset_index().pivot('Date', 'Ticker', 
 daily_pct_change = daily_close_px.pct_change()
 # Plot the distributions
 daily_pct_change.hist(bins=50, sharex=True, figsize=(12,8))
-plt.title('Distribution of Daily Close')
+# plt.title('Distribution of Daily Close')
 # Show the resulting plot
 plt.show()
 
@@ -185,9 +200,9 @@ moving_avg = adj_close_px.rolling(window=40).mean()
 # Inspect the result
 moving_avg[-10:]
 
-# Short moving window rolling mean
+# Short moving window rolling mean --> ie Moving Average (40 days ~= 2 mths)
 aapl['42'] = adj_close_px.rolling(window=40).mean()
-# Long moving window rolling mean
+# Long moving window rolling mean --> ie Moving Average (252 days ~= 12 mths)
 aapl['252'] = adj_close_px.rolling(window=252).mean()
 # Plot the adjusted closing price, the short and long windows of rolling means
 aapl[['Adj. Close', '42', '252']].plot()
@@ -233,9 +248,13 @@ return_data.columns = ['WIKI/AAPL', 'WIKI/MSFT']
 # Add a constant 
 #X = sm.add_constant(return_data['AAPL'])
 X = sm.add_constant(return_data['WIKI/AAPL'])
-# Construct the model
+# Construct the model (OLS = Ordinary Least Squares)
+print("\nOLS #1\n", return_data['WIKI/AAPL'])
+print("\nOLS #2\n", X)
+input("\nOLS input printed, press Enter to continue..\n")
 #model = sm.OLS(return_data['MSFT'],X).fit()
-model = sm.OLS(return_data['WIKI/MSFT'],X).fit()
+#model = sm.OLS(return_data['WIKI/AAPL'],X).fit()
+model = sm.OLS(return_data['WIKI/AAPL'],X).fit()
 # Print the summary
 print(model.summary())
 

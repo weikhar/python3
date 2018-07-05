@@ -1,0 +1,114 @@
+ONG WEI KHAR
+ong_wk@yahoo.com | www.linkedin.com/in/ongweikhar | Mobile: 96803880
+
+
+SUMMARY
+
++	Experienced Business Analyst, Systems Analyst, Embedded Software Engineer
++	Quick to acquire and apply new skills effectively
++	Values relationships, integrity and respect
+
+
+ACHIEVEMENTS
+
++	Project Management
+-	Led project teams for project delivery using new methodologies 
+-	Worked closely with diverse functional teams from different geographical regions
+-	Delivered digital assets (shutter glass firmware, 3D content), for 3DTV project 
+-	Led software development team effort for GUI, middleware, and QA
+
++	Improvements
+-	Automated software validation process and reduced 40-man-hour to 1-man-hour
+-	Delivered system enhancements (eg card personalization) ahead of schedule
+-	Delivered additional feature (Favorite-Channel) on day of request (after clarification, design and implementation)
+
++	Innovations
+-	Created digital contents (3D animations and still-images) for 3DTV displays
+-	Patents: 
+-	EP1612797 - Method for non-repeating random number generation (https://register.epo.org/application?number=EP04291622)
+-	EP1679705 - Method and device for scanning the contents of a storage medium (https://register.epo.org/application?number=EP06100007)
+
+
+PROFESSIONAL EXPERIENCE
+
++	Business Requirements Analyst, Media Data Systems Pte Ltd
+Year: 2011 to current
+
+-	Communicate with various business units and stakeholders, to understand their initiatives for online offerings and services, and the financial justifications
+-	Gather, organize, clarify, and supplement the business requirements 
+-	Facilitate technical teams to understand, implement, and test the required outcomes 
+-	Pilot new methodologies to improve time-to-market 
+
+Media Data Systems manages the online presence of Global Sources. Global Sources is a B2B media MNC headquartered in Hong Kong and facilitates trade between Greater China and the world using Global Sources online marketplaces (www.globalsources.com), mobile apps, eDM, and Trade shows and events.
+
++	System Analyst, Transit Link Pte Ltd
+Year: 2010
+
+-	Manage Card Personalization (CP) application system for initialization and personalization of concessionary stored value cards 
+-	Process user requests through requirement gathering, designing, implementation, UAT, roll-out, with documentation
+-	System maintenance (completed upgrade of system backend)
+
+Value-add
+-	Led 2-man validation team and improved validation efficiency 
+The data validation stage was a 40-man-hours process for the application to ingest the updated data-set and to re-validate the test cases.
+I conceived the idea to automate most of the manual activities. After my design was approved, I implemented the data import and preparation using VB.NET, VBA (MS-Excel, MS-Access), and automated the validation process using Apache, MySQL and PHP.
+This reduced the validation process to 1-man-hr, and improved the application team’s efficiency to work with updated data.
+
+Transit Link is a subsidiary of Land Transport Authority (LTA), providing integrated services and solutions to the authorities (Public Transport Council, LTA), the public transport operators (SBST, SMRT), the card managers (EZ-Link, NETS) and commuters.
+
++	Software Engineer, Digital TV, TCL-Thomson Electronics Singapore Pte Ltd
+Year: Jan 2007 to Dec 2010
+
+-	Delivered the Graphical User Interface (GUI) for the TV. 
+The GUI operates in very limited memory space for various TV models under the TV family (screen-sizes, languages, TV modes, etc).
+-	Work closely with various function groups including hardware development team (internal, Asia) and co-development teams (vendors, Asia), product qualification team (EU), and provided support to manufacturing pilot runs at factory (EU).
+
+Value-add project 1
+-	On day of request, delivered an additional Favorite-Channel feature
+After clarification and design, implemented the initialization (key assignments), user functions [preset (toggle) channel to memory, retrieve, navigate preset channels], within the limited storage available.
+
+Value-add project 2
+-	Led software R&D on 3DTV (stereoscopic, auto-stereoscopic) and accessories
++	Design and build firmware for 3DTV shutter-glass transmitter-receiver set
++	Create 3D contents (animations and still-images) for test of 3DTV
++	Work closely with diverse functional teams such as hardware R&D, CGI designers and animators, spanning different geographical regions 
++	3DTV products showcased in Consumer Electronics Show
+
+TCL-Thomson Electronics provides product development, manufacture, and sales of flat-screen television, at the turn of the worldwide conversion from CRT-TV to flat-screen HDTV technology.
+
++	Software Engineer, Digital Software, Thomson Asia Pacific Holding Pte Ltd	
+Year: Jan 2004 to Dec 2007
+
+-	Delivered the software for Digital Media Processor (DMP) module
+-	Led development for DMP to playback content of electronic file formats (MP3 audio, JPG images) from media such as CD/DVD/USB 
+-	Software Lead for team of 3 engineers, covering GUI and Middleware, and 2 testers for internal software qualification
+-	Led the software team and coordinated with diverse function groups including hardware development teams (chassis, PCB), TV development team (Asia), product qualification (EU), and vendors (Asia).
+-	Generated patents that added competitive advantages to the product range
+
+TAPH Digital Software department develops the software component of DMP module for the TV product family. DMPs include products like CD/DVD player (standalone, TV add-on module), Multi-card media player (TV add-on module).
+
+
+ACADEMIC ACHIEVEMENT
+
++	Bachelor (Honours) in Electrical and Electronics Engineering
+Major: Computing
+Nanyang Technological University, Singapore
+Year: 2003
+-	Final year project graded excellent, for demonstrating advantages of using soft-computing approach (fuzzy logic) for control of Autonomous Underwater Vehicle 
+
++	Diploma in Electronics, Computer & Communications Engineering
+Major: Telecommunications
+Singapore Polytechnic, Singapore
+Year: 1996
+-	Final year project “Animated Dinosaurs” selected as one of highlighted projects in COMMEX
+-	Exhibition of final year project “Animated Dinosaurs” in VolcanoLand, Sentosa
+
+
+
+
+
+ONG WEI KHAR
+ong_wk@yahoo.com | www.linkedin.com/in/ongweikhar | Mobile: 96803880
+Singapore Citizen | Male | Completed National Service
+
+

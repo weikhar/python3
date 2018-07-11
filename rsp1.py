@@ -24,7 +24,7 @@ RSP_curr_val = 0
 ofilename = 'out_' + sys.argv[1]
 
 #df2 = pd.DataFrame(columns=['Date','Fresh','P.close','New Units', 'Carry-over', 'Total Units'])
-COLUMNS = ['Cnt','Date','Fresh','P.close','New Units', 'Carry-over', 'Total Units', 'Avg Cost','RSP_unit_delta','RSP_curr_val']
+COLUMNS = ['Cnt','Date','Available','P.close','New Units', 'Carry-over', 'Total Units', 'Avg Cost','RSP_unit_delta','RSP_curr_val']
 rsp_array = []
 
 def rounddown100(x):
@@ -44,11 +44,11 @@ def doRSP(index):
 
   do_month = False
   RSP_close = df.iloc[index]['Close']
-  RSP_fresh = RSP_Capital + RSP_bal
-  RSP_units = rounddown100(RSP_fresh / RSP_close)
+  AvailableAmt = RSP_Capital + RSP_bal
+  RSP_units = rounddown100(AvailableAmt / RSP_close)
   RSP_total_units += RSP_units
-  RSP_bal = round((RSP_fresh - (RSP_units * RSP_close)),2)
-  RSP_avg_cost = round(((RSP_fresh * RSP_cnt) / RSP_total_units), 3)
+  RSP_bal = round((AvailableAmt - (RSP_units * RSP_close)),2)
+  RSP_avg_cost = round(((RSP_Capital * RSP_cnt) / RSP_total_units), 3)
   RSP_unit_delta = round((RSP_close - RSP_avg_cost),2)
   if (RSP_unit_delta > 0):
     RSP_cgain += 1
@@ -57,11 +57,11 @@ def doRSP(index):
   else:
     pass
   RSP_curr_val = round((RSP_total_units * RSP_close),2)
-  print('[' + str(RSP_cnt) + '] (' + df.iloc[index]['Date'] + ') > Fresh [' + str(RSP_fresh) + '] for P.close [' + str(RSP_close) + '] gets [' + str(RSP_units) + '] units + carry-over [' + str(RSP_bal) + '] and total units [' + str(RSP_total_units) + ']')
-  rsp_array.append([RSP_cnt,df.iloc[index]['Date'], RSP_fresh, RSP_close, RSP_units, RSP_bal, RSP_total_units, RSP_avg_cost,RSP_unit_delta,RSP_curr_val])
+  print('[' + str(RSP_cnt) + '] (' + df.iloc[index]['Date'] + ') > Avail [' + str(AvailableAmt) + '] for P.close [' + str(RSP_close) + '] gets [' + str(RSP_units) + '] units + carry-over [' + str(RSP_bal) + '] and total units [' + str(RSP_total_units) + ']')
+  rsp_array.append([RSP_cnt,df.iloc[index]['Date'], AvailableAmt, RSP_close, RSP_units, RSP_bal, RSP_total_units, RSP_avg_cost,RSP_unit_delta,RSP_curr_val])
   #print('done RSP')
   if RSP_bal < 0: 
-  	print('ERROR, Balance is -ve')
+  	print('ERROR, -ve balance')
   	exit()
 
 #row_cnt = 1
@@ -96,7 +96,7 @@ def Results():
   RSP_curr_val = round((RSP_total_units * RSP_close),2)
   RSP_gain = round((RSP_curr_val - RSP_curr_cost),2)
   RSP_gain_pct = round((RSP_gain / RSP_curr_cost * 100),2)
-  print('Total Fresh [' + str(RSP_curr_cost) + '] Units [' + str(RSP_total_units) + '] = Current Val [' + str(RSP_curr_val) + '] Total Gain = [' + str(RSP_gain) + '] = [' + str(RSP_gain_pct) + ']% Avg Gain.pa [' + str(round((RSP_gain_pct/(RSP_cnt//12)),2)) + ']%.pa')
+  print('Amt Available [' + str(RSP_curr_cost) + '] Units [' + str(RSP_total_units) + '] = Current Val [' + str(RSP_curr_val) + '] Total Gain = [' + str(RSP_gain) + '] = [' + str(RSP_gain_pct) + ']% Avg Gain.pa [' + str(round((RSP_gain_pct/(RSP_cnt//12)),2)) + ']%.pa')
   print('Total intervals [' + str(RSP_cnt) + '] Total InFlow [' + str(RSP_curr_cost) + '] Avg Cost per unit [' + str(round((RSP_curr_cost/RSP_total_units),3)) + '] W:L = [' +  str(RSP_cgain) + ']:[' + str(RSP_closs) + ']')
   #df2.plot(x='Avg Cost', y='col_name_2', style='o')
   df2.plot(y=['P.close','Avg Cost'])

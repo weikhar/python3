@@ -1,3 +1,9 @@
+# find out the value of Regular Savings Plan by pumping in a fixed amount per month, and use the available fund to buy units of the same stock.
+# takes in stock's historical EOD prices, the monthly amount, at the same date each month (or the nearest following trading day), using the close price of the trade day
+# specify the CSV input file  in the command line arguement
+# output file will be the input filename pre-pended with 'out_'
+# this script does not account for dividend reinvestment
+
 import csv
 import sys
 import pandas as pd
@@ -5,30 +11,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-RSP_Capital = 1000				  # invest this amount every month
-RSP_Trade_Date = 18               # trade on this day every month, or the next earliest trading day
+RSP_Capital     = 1000				    # invest this amount every month
+RSP_Trade_Date  = 18              # trade on this day every month, or the next earliest trading day
 ofilename = 'out_' + sys.argv[1]  #file name for the output file
-curr_month = 0
-DayIdx = 0
-IdxLast = 0
-RSP_cnt = 1
-do_month = True
-df = 0
-RSP_units = 0
-RSP_bal = 0
-RSP_total_units = 0
-Pclose = 0
-RSP_avg_cost = 0
-RSP_unit_Pdelta = 0
-RSP_curr_cgain = 0
-RSP_curr_loss = 0
-RSP_curr_val = 0
+img_name =  sys.argv[1].replace('.', '_') + '.png'
+
+curr_month      = 0               # store of current month; if month is changed, store int(new month), and set do_month = True
+do_month        = True            # true if not yet done RSP for the month; false after done
+DayIdx          = 0               # marker for data index
+IdxLast         = 0               # marker for last index of data
+RSP_cnt         = 1               # count number of RSP cycles
+df              = 0               # pandas dataframe placeholder
+RSP_units       = 0               # number of units for this RSP
+RSP_bal         = 0               # balance amount after purchase RSP_units
+RSP_total_units = 0               # accumulated total numer of RSP_units
+Pclose          = 0               # EOD price
+RSP_avg_cost    = 0               # average cost of RSP_total_units
+RSP_unit_Pdelta = 0               # EOD price - RSP_avg_cost; (+ve ? Gain : Loss)
+RSP_curr_cgain  = 0               # total current gain
+RSP_curr_loss   = 0               # total current loss
+RSP_curr_val    = 0               # total current value of RSP_total_units
+
 
 
 #df2 = pd.DataFrame(columns=['Date','Fresh','P.close','New Units', 'Carry-over', 'Total Units'])
 COLUMNS = ['Cnt','Date','Available','P.close','New Units', 'Carry-over', 'Total Units', 'Avg Cost','RSP_unit_Pdelta','RSP_curr_val']
 rsp_array = []
 
+# minimum number of units to be purchased >= 100
 def rounddown100(x):
   return int(math.floor(x / 100.0)) * 100
 
@@ -97,7 +107,6 @@ def Results():
   df2 = df2.drop(['Cnt'], axis=1)
   print(df2)
 
-  RSP_cnt = RSP_cnt - 1
   RSP_curr_cost = RSP_Capital * RSP_cnt
   RSP_curr_val = round((RSP_total_units * Pclose),2)
   RSP_gain = round((RSP_curr_val - RSP_curr_cost),2)
@@ -105,9 +114,11 @@ def Results():
   print('Amt Available [' + str(RSP_curr_cost) + '] Units [' + str(RSP_total_units) + '] = Current Val [' + str(RSP_curr_val) + '] Total Gain = [' + str(RSP_gain) + '] = [' + str(RSP_gain_pct) + ']% Avg Gain.pa [' + str(round((RSP_gain_pct/(RSP_cnt//12)),2)) + ']%.pa')
   print('Total intervals [' + str(RSP_cnt) + '] Total InFlow [' + str(RSP_curr_cost) + '] Avg Cost per unit [' + str(round((RSP_curr_cost/RSP_total_units),3)) + '] W:L = [' +  str(RSP_curr_cgain) + ']:[' + str(RSP_curr_loss) + ']')
   #df2.plot(x='Avg Cost', y='col_name_2', style='o')
+  
   df2.plot(y=['P.close','Avg Cost'])
-  plt.show()
+  plt.savefig(img_name)
   df2.to_csv(ofilename, sep=',')
+  plt.show()
 
 def Main():
   print('Starting')

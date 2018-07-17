@@ -116,6 +116,9 @@ def Results():
   #df2.plot(x='Avg Cost', y='col_name_2', style='o')
   
   df2.plot(y=['P.close','Avg Cost'])
+  plt.xlabel('Months')
+  plt.ylabel('Price')
+  plt.title(img_name)
   plt.savefig(img_name)
   df2.to_csv(ofilename, sep=',')
   plt.show()

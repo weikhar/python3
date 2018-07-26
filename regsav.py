@@ -1,8 +1,16 @@
-# find out the value of Regular Savings Plan by pumping in a fixed amount per month, and use the available fund to buy units of the same stock.
-# takes in stock's historical EOD prices, the monthly amount, at the same date each month (or the nearest following trading day), using the close price of the trade day
-# specify the CSV input file  in the command line arguement
-# output file will be the input filename pre-pended with 'out_'
+# find out the value of Regular Savings Plan by pumping in a fixed amount per month, 
+# and use the available fund to buy units of the same stock.
+# takes in stock's historical EOD prices, the monthly amount, 
+# at the same date each month (or the nearest following trading day), 
+# using the close price of the trade day
 # this script does not account for dividend reinvestment
+
+# 
+# specify the CSV input file  in the command line arguement
+# run this script by: py regsav.py <datafile.csv>
+# * <datafile.csv> is comma seperated with columns [D, O, H, L, C, AC, V]
+# output file will be the input filename pre-pended with 'out_'
+# 
 
 import csv
 import sys
